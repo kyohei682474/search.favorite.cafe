@@ -1,3 +1,54 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+devise_for :customers,skip: [:passwords], controllers: {
+  registrations: "public/registrations",
+  sessions: 'public/sessions'
+}
+ scope module:  :public do
+  root to: 'homes#top'
+  get 'homes/about' => 'homes#about',as: 'about'
+  resources :cafes,only: [:index, :show,]
+  get 'customers/my_page'=> 'customers#show'
+  get 'customers/infomation/edit'=> 'customers#edit'
+  patch 'customers/infomation' => 'customers#update'
+  get 'customers/unsubscribe' => 'customers#unsubscribe'
+  patch 'customers/withdrawal'  => 'customers#withdrawal'
+  resources :posts,only:[:index,:update,:show,:create,:destroy]
+  resources :comments,only:[:index,:edit,:show]
+  resources :likes,only:[:create,:destroy]
+  resources :cafes do
+    collection do
+     get 'search'
+    end
+  end
+  resources :relationships,only:[:index,:create,:destroy]
+  get 'relationships/followings'=> 'relationships#followings'
+  get 'relationships/followers'=> 'relationships#followers'
+
+  # post 'orders/confirm' => 'orders#confirm'
+  # get 'orders/confirm' => 'orders#confirm'
+  # get 'orders/complete' => 'orders#complete'
+  get '/like_notifications'=> 'like_notifications#index'
+  get '/comment_notifications'=> 'comment_notifications#index'
+
+
 end
+
+
+devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
+  sessions: "admin/sessions"
+}
+ namespace :admin do
+ root to: 'homes#top'
+
+ resources :cafes,only:[:index,:new,:edit,:create,:show,:update,]
+  resources :genres,only:[:index,:edit,:create,:update,]
+  resources :customers,only:[:index,:show,:edit,:update]
+  resources :cafes do
+    collection do
+     get 'search'
+    end
+  end
+ end
+
+ end
