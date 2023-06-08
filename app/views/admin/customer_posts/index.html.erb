@@ -1,0 +1,9 @@
+<h1>カスタマーの投稿一覧ページ</h1>
+
+<% @customer_posts.each do |customer_post| %>
+  <div>
+    <h3><%= customer_post.title %></h3>
+    <p><%= customer_post.content %></p>
+    <!-- その他の投稿情報を表示する -->
+  </div>
+<% end %>

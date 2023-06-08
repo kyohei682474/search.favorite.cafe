@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_07_074455) do
+ActiveRecord::Schema.define(version: 2023_06_08_130816) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -24,6 +24,15 @@ ActiveRecord::Schema.define(version: 2023_06_07_074455) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
+  create_table "cafe_facilities", force: :cascade do |t|
+    t.integer "cafe_id", null: false
+    t.integer "facility_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["cafe_id"], name: "index_cafe_facilities_on_cafe_id"
+    t.index ["facility_id"], name: "index_cafe_facilities_on_facility_id"
+  end
+
   create_table "cafes", force: :cascade do |t|
     t.integer "name", null: false
     t.string "address", null: false
@@ -32,6 +41,25 @@ ActiveRecord::Schema.define(version: 2023_06_07_074455) do
     t.boolean "status", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "commets", force: :cascade do |t|
+    t.integer "customer_id", null: false
+    t.integer "post_id", null: false
+    t.text "content", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["customer_id"], name: "index_commets_on_customer_id"
+    t.index ["post_id"], name: "index_commets_on_post_id"
+  end
+
+  create_table "customer_posts", force: :cascade do |t|
+    t.string "title"
+    t.text "content"
+    t.integer "customer_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["customer_id"], name: "index_customer_posts_on_customer_id"
   end
 
   create_table "customers", force: :cascade do |t|
@@ -47,4 +75,58 @@ ActiveRecord::Schema.define(version: 2023_06_07_074455) do
     t.index ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
   end
 
+  create_table "facilities", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.integer "customer_id", null: false
+    t.integer "post_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer "visitor_id", null: false
+    t.integer "visited_id", null: false
+    t.integer "post_id", null: false
+    t.string "action", null: false
+    t.boolean "checked", default: false, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["post_id"], name: "index_notifications_on_post_id"
+    t.index ["visited_id"], name: "index_notifications_on_visited_id"
+    t.index ["visitor_id"], name: "index_notifications_on_visitor_id"
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.integer "customer_id", null: false
+    t.integer "cafe_id", null: false
+    t.text "content", null: false
+    t.string "tilte", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.float "rating"
+    t.float "#<ActiveRecord::ConnectionAdapters::SQLite3::TableDefinition:0x00007fb43baabd78>"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.integer "cafe"
+    t.integer "customer"
+    t.text "comment"
+    t.float "score"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  add_foreign_key "cafe_facilities", "caves"
+  add_foreign_key "cafe_facilities", "facilities"
+  add_foreign_key "commets", "customers"
+  add_foreign_key "commets", "posts"
+  add_foreign_key "customer_posts", "customers"
+  add_foreign_key "notifications", "customers", column: "visited_id"
+  add_foreign_key "notifications", "customers", column: "visitor_id"
+  add_foreign_key "notifications", "posts"
 end

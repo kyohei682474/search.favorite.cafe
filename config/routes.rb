@@ -42,8 +42,9 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
  root to: 'homes#top'
 
  resources :cafes,only:[:index,:new,:edit,:create,:show,:update,]
-  resources :genres,only:[:index,:edit,:create,:update,]
-  resources :customers,only:[:index,:show,:edit,:update]
+ resources :customer_posts,only:[:index,:edit,:show,:update,]
+ resources :facilities,only:[:index,:edit,:create,:update,]
+ resources :customers,only:[:index,:show,:edit,:update]
   resources :cafes do
     collection do
      get 'search'
