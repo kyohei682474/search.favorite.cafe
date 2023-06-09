@@ -38,7 +38,6 @@ ActiveRecord::Schema.define(version: 2023_06_08_130816) do
     t.string "address", null: false
     t.string "business_hours", null: false
     t.float "rate", null: false
-    t.boolean "status", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
