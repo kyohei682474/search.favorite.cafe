@@ -1,5 +1,7 @@
 class Admin::CafesController < ApplicationController
     def index
+        @cafes = Cafe.all
+
     end
 
     def new
@@ -9,7 +11,7 @@ class Admin::CafesController < ApplicationController
     def create
           @cafe = Cafe.new(cafe_params)
         if @cafe.save
-     　　 redirect_to @cafe, notice: "カフェが登録されました。"
+          redirect_to admin_cafes_path, notice: "カフェが登録されました。"
         else
           render :new
         end

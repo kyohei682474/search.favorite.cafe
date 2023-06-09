@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 2023_06_08_130816) do
   end
 
   create_table "cafes", force: :cascade do |t|
-    t.integer "name", null: false
+    t.string "name", null: false
     t.string "address", null: false
     t.string "business_hours", null: false
     t.float "rate", null: false
