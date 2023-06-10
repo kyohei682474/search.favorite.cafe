@@ -1,0 +1,34 @@
+カフェ詳細ページ
+
+
+<table>
+ <tr>
+  <td>カフェ名</td>
+  <td> <%= @cafe.name %></td>
+ </tr>
+
+ <tr>
+  <td>住所</td>
+  <td><%= @cafe.address %></td>
+ </tr>
+
+ <tr>
+  <td>営業時間</td>
+  <td><%= @cafe.business_hours %></td>
+ </tr>
+
+ <tr>
+  <td>評価</td>
+  <td><%= @cafe.rate %></td>
+ </tr>
+
+<tr>
+  <td><%= link_to "編集", edit_admin_cafe_path(@cafe.id) %></td>
+  <td><%= link_to "削除", admin_cafe_path(@cafe.id), method: :delete, "data-confirm" => "本当に削除しますか？" %></td>
+
+ </tr>
+
+
+
+</table>
+

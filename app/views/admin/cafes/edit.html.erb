@@ -1,0 +1,31 @@
+カフェ編集ページ
+
+<%= form_with model: @cafe, url:admin_cafe_path(@cafe.id), method: :patch do |f| %>
+
+<table>
+ <tr>
+  <td> <%= f.label :カフェ名 %></td>
+  <td> <%= f.text_field :name %></td>
+ </tr>
+
+ <tr>
+  <td><%= f.label :住所 %></td>
+  <td> <%= f.text_field :address %></td>
+ </tr>
+
+ <tr>
+  <td> <%= f.label :営業時間 %></td>
+  <td><%= f.text_field :business_hours %></td>
+ </tr>
+
+ <tr>
+  <td><%= f.label :評価 %></td>
+  <td><%= f.number_field :rate %></td>
+ </tr>
+
+</table>
+
+
+
+  <%= f.submit "更新" %>
+<% end %>

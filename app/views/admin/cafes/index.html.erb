@@ -1,11 +1,22 @@
 カフェ一覧ページ
 
+
 <% @cafes.each do |cafe| %>
-  <div>
-    <p>カフェの名前<%= cafe.name %></p>
-    <p>住所<%= cafe.address %></p>
-    <p>営業時間<%= cafe.business_hours %></p>
-    <p>カフェの評価<%= cafe.rate%></p>
-    <!-- その他の投稿情報を表示する -->
-  </div>
+
+<table>
+ <tr>
+  <td>カフェ名</td>
+  <td> <%= link_to cafe.name,admin_cafe_path(cafe.id) %></td>
+ </tr>
+
+
+ <tr>
+  <td>評価</td>
+  <td><%= cafe.rate %></td>
+ </tr>
+
+
+
+
+</table>
 <% end %>
