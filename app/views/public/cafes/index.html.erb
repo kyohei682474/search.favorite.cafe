@@ -1,1 +1,26 @@
 カスタマー側カフェ一覧ページ
+
+  <% @cafes.each do |cafe| %>
+ <table>
+ <tr>
+  <td> カフェ名</td>
+  <td> <%= cafe.name%></td>
+ </tr>
+
+ <tr>
+  <td>住所<td>
+  <td> <%= cafe.address %></td>
+ </tr>
+
+ <tr>
+  <td> 営業時間 </td>
+  <td><%= cafe.business_hours %></td>
+ </tr>
+
+ <tr>
+  <td>評価 </td>
+  <td><%= cafe.rate %></td>
+ </tr>
+
+</table>
+<%end%>

@@ -13,7 +13,7 @@ devise_for :customers,skip: [:passwords], controllers: {
   patch 'customers/infomation' => 'customers#update'
   get 'customers/unsubscribe' => 'customers#unsubscribe'
   patch 'customers/withdrawal'  => 'customers#withdrawal'
-  resources :posts,only:[:index,:update,:show,:create,:destroy]
+  resources :posts,only:[:new,:index,:update,:show,:create,:destroy]
   resources :comments,only:[:index,:edit,:show]
   resources :likes,only:[:create,:destroy]
   resources :cafes do

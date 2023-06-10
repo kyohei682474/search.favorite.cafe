@@ -1,4 +1,6 @@
 class Post < ApplicationRecord
-    
-    has_one :customer_post
+  belongs_to :customer
+  belongs_to :cafe
+
+  validates :content, presence: true
 end
