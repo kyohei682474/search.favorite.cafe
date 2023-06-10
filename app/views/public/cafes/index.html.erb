@@ -4,7 +4,8 @@
  <table>
  <tr>
   <td> カフェ名</td>
-  <td> <%= cafe.name%></td>
+  <td> <%= link_to cafe.name,cafe_path(cafe.id) %></td>
+
  </tr>
 
  <tr>

@@ -19,6 +19,7 @@ class Admin::CafesController < ApplicationController
 
     def show
          @cafe = Cafe.find(params[:id])
+
     end
 
     def edit
@@ -41,7 +42,7 @@ class Admin::CafesController < ApplicationController
      private
 
   def cafe_params
-    params.require(:cafe).permit(:name, :address, :business_hours, :rate)
+    params.require(:cafe).permit(:name, :address, :business_hours, :rate,:cafe_id)
   end
 
 end

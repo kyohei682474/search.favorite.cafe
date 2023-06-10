@@ -1,0 +1,31 @@
+<h3><%= @cafe.name%>の詳細ページ</h3>
+<table>
+ <tr>
+  <td> カフェ名</td>
+  <td> <%= @cafe.name %></td>
+
+ </tr>
+
+ <tr>
+  <td>住所<td>
+  <td> <%= @cafe.address %></td>
+ </tr>
+
+ <tr>
+  <td> 営業時間 </td>
+  <td><%= @cafe.business_hours %></td>
+ </tr>
+
+ <tr>
+  <td>評価 </td>
+  <td><%= @cafe.rate %></td>
+ </tr>
+
+</table>
+
+
+<h2>コメント</h2>
+<%= form_with(model: @comment, url: comments_path(@comments), local: true) do |form| %>
+  <%= form.text_area :content, placeholder: "コメントを入力していください！" %>
+  <%= form.submit "投稿する" %>
+  <%end%>
