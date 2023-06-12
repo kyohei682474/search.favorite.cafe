@@ -5,6 +5,8 @@ class CreateCafes < ActiveRecord::Migration[6.1]
       t.string :address,               null: false
       t.string :business_hours,        null: false
       t.float  :rate,                  null: false
+      t.float  :latitude,              null: false
+      t.float  :longitude,              null: false
 
 
 

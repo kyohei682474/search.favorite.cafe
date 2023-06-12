@@ -42,6 +42,14 @@ ActiveRecord::Schema.define(version: 2023_06_08_130816) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "comments", force: :cascade do |t|
+    t.string "content", null: false
+    t.integer "customer_id"
+    t.integer "cafe_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "commets", force: :cascade do |t|
     t.integer "customer_id", null: false
     t.integer "post_id", null: false
@@ -122,6 +130,8 @@ ActiveRecord::Schema.define(version: 2023_06_08_130816) do
 
   add_foreign_key "cafe_facilities", "caves"
   add_foreign_key "cafe_facilities", "facilities"
+  add_foreign_key "comments", "cafes"
+  add_foreign_key "comments", "customers"
   add_foreign_key "commets", "customers"
   add_foreign_key "commets", "posts"
   add_foreign_key "customer_posts", "customers"

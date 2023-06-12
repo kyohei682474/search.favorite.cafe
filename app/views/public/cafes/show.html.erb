@@ -25,7 +25,16 @@
 
 
 <h2>コメント</h2>
-<%= form_with(model: @comment, url: comments_path(@comments), local: true) do |form| %>
-  <%= form.text_area :content, placeholder: "コメントを入力していください！" %>
-  <%= form.submit "投稿する" %>
+
+<%= form_with(model: [@cafe, @comment], url: cafe_comments_path(@cafe), local: true, method: :post) do |f| %>
+  <%= f.text_area :content, placeholder: "コメントを投稿してください" %>
+  <%= f.hidden_field :cafe_id, value: @cafe.id%>
+  <%= f.submit "投稿する" %>
   <%end%>
+
+
+<h2>コメント一覧</h2>
+<% @cafe.comments.each do |comment| %>
+  <p><%= comment.content %></p>
+  <p>投稿者: <%= comment.customer.name %></p>
+<% end %>

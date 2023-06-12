@@ -19,8 +19,11 @@ class Admin::CafesController < ApplicationController
 
     def show
          @cafe = Cafe.find(params[:id])
-
+   　
     end
+
+
+
 
     def edit
          @cafe = Cafe.find(params[:id])

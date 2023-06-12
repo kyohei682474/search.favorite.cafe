@@ -3,7 +3,7 @@ class Public::CommentsController < ApplicationController
 
   def create
     @comment = @cafe.comments.build(comment_params)
-    @comment.user = current_user
+    @comment.customer = current_customer
 
     if @comment.save
       redirect_to cafe_path(@cafe), notice: "コメントが投稿されました。"
@@ -19,6 +19,6 @@ class Public::CommentsController < ApplicationController
   end
 
   def comment_params
-    params.require(:comment).permit(:content)
+    params.require(:comment).permit(:content,)
   end
 end
