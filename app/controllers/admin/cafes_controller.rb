@@ -9,7 +9,12 @@ class Admin::CafesController < ApplicationController
     end
 
     def create
-          @cafe = Cafe.new(cafe_params)
+      default_latitude = 35.6895  # 都市の中心の緯度
+      default_longitude = 139.6917  # 都市の中心の経度
+
+      @cafe = Cafe.new(cafe_params)
+      @cafe.latitude = default_latitude
+      @cafe.longitude = default_longitude
         if @cafe.save
           redirect_to admin_cafes_path, notice: "カフェが登録されました。"
         else
@@ -19,7 +24,7 @@ class Admin::CafesController < ApplicationController
 
     def show
          @cafe = Cafe.find(params[:id])
-   　
+
     end
 
 
