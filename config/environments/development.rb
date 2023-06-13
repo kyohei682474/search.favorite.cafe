@@ -73,6 +73,6 @@ Rails.application.configure do
 
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
-
+  config.google_maps_api_key = AIzaSyBmTqa1XHfG6pKn45ryw4T6e3vOLQHN3fU
    config.hosts.clear
 end

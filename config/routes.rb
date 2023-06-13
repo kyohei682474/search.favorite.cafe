@@ -52,5 +52,7 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
     end
   end
  end
+Rails.application.routes.draw do
+end
 
  end

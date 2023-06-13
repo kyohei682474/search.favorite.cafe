@@ -8,6 +8,12 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+　　<%= javascript_include_tag 'map' %>
+
+　　<%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+　　<%= stylesheet_link_tag 'map' %>
   </head>
 
   <body>
@@ -17,6 +23,10 @@
       <%= link_to admin_cafes_path, class:'nav-link text-dark' do %>
       <li>カフェ一覧</li>
       <% end %>
+
+      <%= link_to new_admin_cafe_path, class:'nav-link text-dark' do%>
+      <li>カフェ登録</li>
+      <%end%>
 
       <%= link_to admin_customers_path,class:'nav-link text-dark' do %>
       <li>会員一覧</li>

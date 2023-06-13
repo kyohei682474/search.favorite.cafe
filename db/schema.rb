@@ -24,20 +24,13 @@ ActiveRecord::Schema.define(version: 2023_06_08_130816) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
-  create_table "cafe_facilities", force: :cascade do |t|
-    t.integer "cafe_id", null: false
-    t.integer "facility_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["cafe_id"], name: "index_cafe_facilities_on_cafe_id"
-    t.index ["facility_id"], name: "index_cafe_facilities_on_facility_id"
-  end
-
   create_table "cafes", force: :cascade do |t|
     t.string "name", null: false
     t.string "address", null: false
     t.string "business_hours", null: false
     t.float "rate", null: false
+    t.float "latitude", null: false
+    t.float "longitude", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -48,16 +41,6 @@ ActiveRecord::Schema.define(version: 2023_06_08_130816) do
     t.integer "cafe_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "commets", force: :cascade do |t|
-    t.integer "customer_id", null: false
-    t.integer "post_id", null: false
-    t.text "content", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["customer_id"], name: "index_commets_on_customer_id"
-    t.index ["post_id"], name: "index_commets_on_post_id"
   end
 
   create_table "customer_posts", force: :cascade do |t|
@@ -83,9 +66,16 @@ ActiveRecord::Schema.define(version: 2023_06_08_130816) do
   end
 
   create_table "facilities", force: :cascade do |t|
-    t.string "name", null: false
+    t.integer "cafe_id", null: false
+    t.boolean "wifi", default: false
+    t.boolean "power_outlets", default: false
+    t.boolean "seating", default: false
+    t.boolean "outdoor_seating", default: false
+    t.boolean "parking", default: false
+    t.boolean "wheelchair_accessible", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["cafe_id"], name: "index_facilities_on_cafe_id"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -116,7 +106,7 @@ ActiveRecord::Schema.define(version: 2023_06_08_130816) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.float "rating"
-    t.float "#<ActiveRecord::ConnectionAdapters::SQLite3::TableDefinition:0x00007fb43baabd78>"
+    t.float "#<ActiveRecord::ConnectionAdapters::SQLite3::TableDefinition:0x00007f3f3930ca80>"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -128,13 +118,10 @@ ActiveRecord::Schema.define(version: 2023_06_08_130816) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "cafe_facilities", "caves"
-  add_foreign_key "cafe_facilities", "facilities"
   add_foreign_key "comments", "cafes"
   add_foreign_key "comments", "customers"
-  add_foreign_key "commets", "customers"
-  add_foreign_key "commets", "posts"
   add_foreign_key "customer_posts", "customers"
+  add_foreign_key "facilities", "caves"
   add_foreign_key "notifications", "customers", column: "visited_id"
   add_foreign_key "notifications", "customers", column: "visitor_id"
   add_foreign_key "notifications", "posts"
