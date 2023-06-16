@@ -14,7 +14,7 @@ devise_for :customers,skip: [:passwords], controllers: {
   get 'customers/unsubscribe' => 'customers#unsubscribe'
   patch 'customers/withdrawal'  => 'customers#withdrawal'
   resources :posts,only:[:new,:index,:update,:show,:create,:destroy]
-
+  resources :cafe_ratings,only:[:create]
   resources :likes,only:[:create,:destroy]
   resources :cafes do
     resources :comments,only:[:index,:edit,:show,:create]
@@ -54,5 +54,4 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
  end
 Rails.application.routes.draw do
 end
-
  end

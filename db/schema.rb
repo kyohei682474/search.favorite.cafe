@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_08_130816) do
+ActiveRecord::Schema.define(version: 2023_06_15_075539) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -22,6 +22,16 @@ ActiveRecord::Schema.define(version: 2023_06_08_130816) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+  end
+
+  create_table "cafe_ratings", force: :cascade do |t|
+    t.integer "cafe_id"
+    t.integer "customer_id"
+    t.integer "score"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["cafe_id"], name: "index_cafe_ratings_on_cafe_id"
+    t.index ["customer_id"], name: "index_cafe_ratings_on_customer_id"
   end
 
   create_table "cafes", force: :cascade do |t|
@@ -118,6 +128,8 @@ ActiveRecord::Schema.define(version: 2023_06_08_130816) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "cafe_ratings", "caves"
+  add_foreign_key "cafe_ratings", "customers"
   add_foreign_key "comments", "cafes"
   add_foreign_key "comments", "customers"
   add_foreign_key "customer_posts", "customers"

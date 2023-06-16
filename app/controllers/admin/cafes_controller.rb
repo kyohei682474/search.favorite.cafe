@@ -2,6 +2,7 @@ class Admin::CafesController < ApplicationController
     def index
         @cafes = Cafe.all
 
+
     end
 
     def new
@@ -9,21 +10,29 @@ class Admin::CafesController < ApplicationController
     end
 
     def create
-      default_latitude = 35.6895  # 都市の中心の緯度
-      default_longitude = 139.6917  # 都市の中心の経度
 
       @cafe = Cafe.new(cafe_params)
-      @cafe.latitude = default_latitude
-      @cafe.longitude = default_longitude
-        if @cafe.save
+      geocode_result = Geocoder.search(@cafe.address).first
+      if geocode_result.present?
+            @cafe.latitude = geocode_result.latitude
+            @cafe.longitude = geocode_result.longitude
+      else
+            # 住所から緯度経度が取得できない場合、デフォルト値を設定する
+            @cafe.latitude = 0.0
+            @cafe.longitude = 0.0
+      end
+
+      if @cafe.save
           redirect_to admin_cafes_path, notice: "カフェが登録されました。"
-        else
+      else
           render :new
-        end
+      end
+
     end
 
     def show
          @cafe = Cafe.find(params[:id])
+         
 
     end
 

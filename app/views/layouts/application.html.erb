@@ -1,67 +1,80 @@
 <!DOCTYPE html>
-<html>
+
+
+<html lang="ja">
   <head>
+    <style>
+     html { height: 100% } /*#地図機能を表示させるため*/
+     body { height: 100% }
+     #map { height: 50%; width: 50%}
+    </style>
     <title>SearchFavoriteCafe</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmTqa1XHfG6pKn45ryw4T6e3vOLQHN3fU&callback=initMap" async defer></script>
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <!-- Turbolinksの読み込み -->
+    <script src="/packs/js/application-a7fa32c4d9c9743a6eec.js" data-turbolinks-track="reload" data-turbolinks-suppress-warning></script>
 
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-　　<%= javascript_include_tag 'map' %>
 
-　　<%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-　　<%= stylesheet_link_tag 'map' %>
+    <!-- Google Maps APIの読み込み -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmTqa1XHfG6pKn45ryw4T6e3vOLQHN3fU&callback=initMap" async defer></script>
+    <script src="path/to/map.js"></script>
+
+    <%= javascript_pack_tag 'map', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+    <script src="https://kit.fontawesome.com/772f6ab961.js" crossorigin="anonymous"></script>
+
   </head>
 
   <body>
-
     <header>
-    <% if admin_signed_in? %>
-      <%= link_to admin_cafes_path, class:'nav-link text-dark' do %>
-      <li>カフェ一覧</li>
+      <% if admin_signed_in? %>
+        <%= link_to admin_cafes_path, class:'nav-link text-dark' do %>
+          <li>カフェ一覧</li>
+        <% end %>
+
+        <%= link_to new_admin_cafe_path, class:'nav-link text-dark' do%>
+          <li>カフェ登録</li>
+        <% end %>
+
+        <%= link_to admin_customers_path,class:'nav-link text-dark' do %>
+          <li>会員一覧</li>
+        <% end %>
+
+        <%= link_to admin_facilities_path,class:'nav-link text-dark' do %>
+          <li>設備一覧</li>
+        <% end %>
+
+        <%= link_to admin_customer_posts_path,class:'nav-link text-dark' do %>
+          <li>投稿一覧</li>
+        <% end %>
+
+        <%= link_to destroy_admin_session_path, method: :delete, class: 'nav-link text-dark' do %>
+          <li>ログアウト</li>
+        <% end %>
+
+      <% elsif customer_signed_in? %>
+        <li>
+          <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
+        </li>
+
+        <li>
+          <%= link_to "カフェ一覧", cafes_path, method: :get %>
+        </li>
+      <% else %>
+        <li>
+          <%= link_to "新規登録", new_customer_registration_path %>
+        </li>
+        <li>
+          <%= link_to "ログイン", new_customer_session_path %>
+        </li>
       <% end %>
+    </header>
 
-      <%= link_to new_admin_cafe_path, class:'nav-link text-dark' do%>
-      <li>カフェ登録</li>
-      <%end%>
-
-      <%= link_to admin_customers_path,class:'nav-link text-dark' do %>
-      <li>会員一覧</li>
-    　 <% end %>
-
-    　 <%= link_to admin_facilities_path,class:'nav-link text-dark' do %>
-      <li>設備一覧</li>
-    　 <% end %>
-
-    　 <%= link_to admin_customer_posts_path,class:'nav-link text-dark' do %>
-      <li>投稿一覧</li>
-    　 <% end %>
-
-    　 <%= link_to destroy_admin_session_path, method: :delete, class: 'nav-link text-dark' do %>
-    　 <li>ログアウト</li>
-    　 <% end %>
-
-
-    <% elsif customer_signed_in? %>
-      <li>
-        <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
-      </li>
-
-      <li>
-        <%= link_to "カフェ一覧", cafes_path, method: :get %>
-      </li>
-    <% else %>
-      <li>
-        <%= link_to "新規登録", new_customer_registration_path %>
-      </li>
-      <li>
-        <%= link_to "ログイン", new_customer_session_path %>
-      </li>
-    <% end %>
-  </header>
     <%= yield %>
   </body>
 </html>
