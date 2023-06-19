@@ -61,7 +61,9 @@
         <li>
           <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
         </li>
-
+        <li>
+         <%= link_to 'マイページ', customers_my_page_path(current_customer.id) %>
+        </li>
         <li>
           <%= link_to "カフェ一覧", cafes_path, method: :get %>
         </li>

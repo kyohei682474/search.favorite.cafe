@@ -6,6 +6,7 @@ class Customer < ApplicationRecord
   has_many :reviews
   has_many :posts
   has_many :comments
-  has_many :caferatings
+  has_many :caferatingss
+  attribute :introduction, :string
 
 end

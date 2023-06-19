@@ -1,0 +1,11 @@
+マイページの編集
+<%= form_with( model: @customer, url: customers_infomation_path, method: :patch) do |form|%>
+
+  <h4>名前</h4>
+  <%= form.text_field :name %>
+  <%= form.text_field :introduction %>
+
+  <%= form.submit '保存' %>
+  <%= link_to "削除", customers_infomation_path, method: :patch %>
+
+<% end %>

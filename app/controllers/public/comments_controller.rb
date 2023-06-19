@@ -24,7 +24,9 @@ class Public::CommentsController < ApplicationController
   end
 
   def update
-
+     @comment =@cafe.comments.find(params[:id])
+     @comment.update(comment_params)
+     redirect_to cafe_path(@cafe.id)
   end
   private
 
