@@ -1,0 +1,11 @@
+コメント編集ページ
+<%= form_with( model: @comment, url: cafe_comment_path(@cafe), method: :patch) do |form|%>
+
+  <h4>コメント</h4>
+  <%= form.text_area :content %>
+
+
+  <%= form.submit '保存' %>
+  <%= link_to "削除", cafe_comment_path(@cafe), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+
+<% end %>

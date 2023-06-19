@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_15_075539) do
+ActiveRecord::Schema.define(version: 2023_06_19_104818) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -30,7 +30,6 @@ ActiveRecord::Schema.define(version: 2023_06_15_075539) do
     t.integer "score"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["cafe_id"], name: "index_cafe_ratings_on_cafe_id"
     t.index ["customer_id"], name: "index_cafe_ratings_on_customer_id"
   end
 
@@ -51,6 +50,7 @@ ActiveRecord::Schema.define(version: 2023_06_15_075539) do
     t.integer "cafe_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "score"
   end
 
   create_table "customer_posts", force: :cascade do |t|
@@ -85,7 +85,6 @@ ActiveRecord::Schema.define(version: 2023_06_15_075539) do
     t.boolean "wheelchair_accessible", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["cafe_id"], name: "index_facilities_on_cafe_id"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -116,7 +115,7 @@ ActiveRecord::Schema.define(version: 2023_06_15_075539) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.float "rating"
-    t.float "#<ActiveRecord::ConnectionAdapters::SQLite3::TableDefinition:0x00007f3f3930ca80>"
+    t.float "#<ActiveRecord::ConnectionAdapters::SQLite3::TableDefinition:0x00007f9fb3268fb8>"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -128,12 +127,12 @@ ActiveRecord::Schema.define(version: 2023_06_15_075539) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "cafe_ratings", "caves"
+  add_foreign_key "cafe_ratings", "cafes"
   add_foreign_key "cafe_ratings", "customers"
   add_foreign_key "comments", "cafes"
   add_foreign_key "comments", "customers"
   add_foreign_key "customer_posts", "customers"
-  add_foreign_key "facilities", "caves"
+  add_foreign_key "facilities", "cafes"
   add_foreign_key "notifications", "customers", column: "visited_id"
   add_foreign_key "notifications", "customers", column: "visitor_id"
   add_foreign_key "notifications", "posts"

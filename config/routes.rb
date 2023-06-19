@@ -14,10 +14,11 @@ devise_for :customers,skip: [:passwords], controllers: {
   get 'customers/unsubscribe' => 'customers#unsubscribe'
   patch 'customers/withdrawal'  => 'customers#withdrawal'
   resources :posts,only:[:new,:index,:update,:show,:create,:destroy]
+  resources :cafe_rating_comments,only:[:create]
   resources :cafe_ratings,only:[:create]
   resources :likes,only:[:create,:destroy]
   resources :cafes do
-    resources :comments,only:[:index,:edit,:show,:create]
+    resources :comments,only:[:index,:edit,:show,:create,:destroy,:update]
     collection do
      get 'search'
     end

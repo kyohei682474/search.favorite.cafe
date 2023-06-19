@@ -12,6 +12,20 @@ class Public::CommentsController < ApplicationController
     end
   end
 
+  def destroy
+
+    @comment = @cafe.comments.find(params[:id])
+    @comment.destroy  # データ（レコード）を削除
+    redirect_to cafe_path(@cafe.id), notice: 'コメントが削除されました。'  # カフェの詳細画面へリダイレクト
+  end
+
+  def edit
+    @comment =@cafe.comments.find(params[:id])
+  end
+
+  def update
+
+  end
   private
 
   def set_cafe
@@ -19,6 +33,6 @@ class Public::CommentsController < ApplicationController
   end
 
   def comment_params
-    params.require(:comment).permit(:content,)
+    params.require(:comment).permit(:content,:cafe_id, :customer_id, :score)
   end
 end

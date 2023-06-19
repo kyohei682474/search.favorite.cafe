@@ -1,18 +1,18 @@
 require 'cafe_rating'
 class Public::CafeRatingsController < ApplicationController
-    def create
-    @cafe_rating = ::CafeRating.new(cafe_rating_params)
 
-     if @cafe_rating.save
-      # 保存が成功した場合の処理
+  def create
+    @cafe = Cafe.find(params[:cafe_rating][:cafe_id])
+    @cafe_rating = @cafe.cafe_ratings.build(cafe_rating_params)
+    if @cafe_rating.save
       flash[:success] = '評価が保存されました'
-     else
-      # 保存が失敗した場合の処理
-      flash[:error] = '評価の保存に失敗しました'
-     end
-
-     　redirect_to  cafes_path
+      redirect_to @cafe
+    else
+      flash.now[:error] = '評価の保存に失敗しました'
+      render 'cafes/show'
+      return
     end
+  end
 
   private
 

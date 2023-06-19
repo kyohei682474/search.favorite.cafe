@@ -20,7 +20,7 @@
 
  <tr>
   <td>評価 </td>
-  <td><%= @cafe.rate %></td>
+  <td><%= @cafe.average_scoreing  %></td>
  </tr>
 
 </table>
@@ -28,48 +28,65 @@
 
 <h2>コメント</h2>
 
-<%= form_with(model: [@cafe, @comment], url: cafe_comments_path(@cafe), local: true, method: :post) do |f| %>
-  <%= f.text_area :content, placeholder: "コメントを投稿してください" %>
-  <%= f.hidden_field :cafe_id, value: @cafe.id%>
-  <%= f.submit "投稿する" %>
-  <%end%>
+<%= form_with(model: @comment, url: cafe_comments_path(@cafe), method: :post) do |form| %>
+  <%= form.text_area :content, placeholder: "コメントを投稿してください" %>
+  <%= form.hidden_field :cafe_id, value: @cafe.id %>
+  <%= form.hidden_field :customer_id, value: @customer.id %>
+  <%= form.label :score, '評価', class: 'col-md-3 col-form-label' %>
+  <%= form.hidden_field :score, id: "comment-rating-score" %>
 
-
-<h2>コメント一覧</h2>
-<% @cafe.comments.each do |comment| %>
-  <p><%= comment.content %></p>
-  <p>投稿者: <%= comment.customer.name %></p>
-<% end %>
-
-<h3>評価を行う</h3>
-<%= form_with(model: @cafe_rating, url: cafe_ratings_path, method: :post) do |form| %>
-  <div class="rating-stars">
+  <div id="star-rating">
     <span class="fa fa-star" data-score="1"></span>
     <span class="fa fa-star" data-score="2"></span>
     <span class="fa fa-star" data-score="3"></span>
     <span class="fa fa-star" data-score="4"></span>
     <span class="fa fa-star" data-score="5"></span>
   </div>
-  <%= form.hidden_field :cafe_id, value: @cafe.id %>
-  <%= form.hidden_field :customer_id, value: @customer.id %>
-  <%= form.hidden_field :score, id: "rating-score" %>
-  <%= form.submit "評価する" %>
 
-<!--評価を行うためのjavaの記載-->
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    var stars = document.querySelectorAll('.rating-stars .fa-star');
-    stars.forEach(function(star) {
-      star.addEventListener('click', function() {
-        var score = star.getAttribute('data-score');
-        // スコアの処理を実装する
-        console.log('Selected score:', score);
+  <%= form.submit "投稿する" %>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var stars = document.querySelectorAll('#star-rating .fa-star');
+      var scoreField = document.getElementById('comment-rating-score');
+
+      stars.forEach(function(star) {
+        star.addEventListener('click', function() {
+          var score = star.getAttribute('data-score');
+          scoreField.value = score;
+        });
       });
     });
-  });
-</script>
+  </script>
 <% end %>
-<body>
+
+<!--  <script>-->
+<!--  document.addEventListener('DOMContentLoaded', function() {-->
+<!--    var stars = document.querySelectorAll('.rating-stars .fa-star');-->
+<!--    var scoreField = document.getElementById('rating-score');-->
+
+<!--    stars.forEach(function(star) {-->
+<!--      star.addEventListener('click', function() {-->
+<!--        var score = star.getAttribute('data-score');-->
+<!--        scoreField.value = score;-->
+<!--      });-->
+<!--    });-->
+<!--  });-->
+<!--</script>-->
+
+
+
+<h2>コメント一覧</h2>
+<% @cafe.comments.each do |comment| %>
+  <p><%= comment.content %></p>
+  <p>投稿者<%= comment.customer.name %></p>
+  <p>評価<%= comment.score %></p>
+  <p>日時時間<%= comment.created_at.strftime('%Y/%m/%d')%>
+  <%= link_to "編集する", edit_cafe_comment_path(comment.cafe, comment), method: :get %>
+  <%= link_to "削除", cafe_comment_path(comment.cafe, comment), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+<% end %>
+
+
 <div id="map"></div>
 
 
