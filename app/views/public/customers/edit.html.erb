@@ -3,7 +3,8 @@
 
   <h4>名前</h4>
   <%= form.text_field :name %>
-  <%= form.text_field :introduction %>
+  <%= form.label :introduction, '自己紹介' %>
+  <%= form.text_area :introduction, rows: 4, class: 'form-control' %>
 
   <%= form.submit '保存' %>
   <%= link_to "削除", customers_infomation_path, method: :patch %>
