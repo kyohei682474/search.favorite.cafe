@@ -1,6 +1,10 @@
 class Public::CafesController < ApplicationController
 require_relative '../application_controller'
 
+  def top 
+     @cafes = Cafe.all
+  end
+  
   def index
       @cafes = Cafe.all
 

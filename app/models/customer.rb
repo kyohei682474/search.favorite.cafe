@@ -8,5 +8,7 @@ class Customer < ApplicationRecord
   has_many :comments
   has_many :caferatingss
   attribute :introduction, :string
+  validates :name, presence: true
+  validates :introduction, presence: true
 
 end

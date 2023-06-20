@@ -3,7 +3,8 @@
 
 新着カフェ一覧
 <% @cafes.each do |cafe| %>
-  <p><%= cafe.name %></p>
-  <p><%= cafe.address %></p>
-  <p>評価<%= cafe.average_scoreing %></p>
+  <p>カフェの名前<%= cafe.name %></p>
+  <p>カフェの住所<%= cafe.address %></p>
+  <p>評価<%= cafe.comment.score %></p>
+  <p>評価<%= cafe.comment.score %></p>
 <% end %>
