@@ -59,3 +59,4 @@ gem 'devise'
 
 gem 'gmaps4rails'
 gem 'geocoder'
+gem 'bootstrap', '~> 5.0.2'
