@@ -25,7 +25,7 @@ class Public::SessionsController < Devise::SessionsController
   # def configure_sign_in_params
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
-  
+
 protected
 # 退会しているかを判断するメソッド
   def customer_state
@@ -35,7 +35,13 @@ protected
   return if !@customer
   ## 【処理内容2】 取得したアカウントのパスワードと入力されたパスワードが一致してるかを判別
   if @customer.valid_password?(params[:customer][:password])
-    ## 【処理内容3】
+    ## 【処理内容3】もし退会者ならばsing_in画面に
+  elsif is_deleted == true
+      return customer_session_path
+
+  else
   end
+
   end
+
 end
