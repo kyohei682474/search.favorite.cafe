@@ -1,11 +1,14 @@
 class Cafe < ApplicationRecord
-    has_many :reviews
-    has_many :posts
-    has_many :comments
-    has_many :cafe_ratings
+
+    has_many :posts, dependent: :destroy
+    has_many :comments, dependent: :destroy
+    has_many :cafe_ratings, dependent: :destroy
+    has_many :facilities, dependent: :destroy
     self.table_name = 'cafes'
-    
+
     def average_scoreing
-        comments.average(:score)
+        average_score = comments.average(:score)
+        rounded_average = average_score.round(1) #少数第1位で四捨五入
+        rounded_average
     end
 end

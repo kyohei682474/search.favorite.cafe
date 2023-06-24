@@ -9,6 +9,7 @@ require_relative '../application_controller'
       @cafes = Cafe.all
 
   end
+  
   def show
       @cafe = Cafe.find(params[:id])
       @customer = current_customer

@@ -7,6 +7,7 @@ class Admin::CafesController < ApplicationController
 
     def new
         @cafe = Cafe.new
+        @faci
     end
 
     def create
@@ -30,10 +31,12 @@ class Admin::CafesController < ApplicationController
 
     end
 
-    def show
-         @cafe = Cafe.find(params[:id])
-         
 
+
+
+
+    def show
+        @cafe = Cafe.find(params[:id])
     end
 
 
@@ -59,7 +62,7 @@ class Admin::CafesController < ApplicationController
      private
 
   def cafe_params
-    params.require(:cafe).permit(:name, :address, :business_hours, :rate,:cafe_id)
+    params.require(:cafe).permit(:name, :address, :business_hours,:cafe_id,:facility_ids)
   end
 
 end

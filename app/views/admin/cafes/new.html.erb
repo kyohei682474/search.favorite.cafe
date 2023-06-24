@@ -1,4 +1,4 @@
-管理者側
+
 <h1>カフェ登録</h1>
 
 <%= form_with(model: @cafe, url: admin_cafes_path, local: true) do |form| %>
@@ -18,10 +18,16 @@
     <%= form.text_field :business_hours %>
   </div>
 
+<!-- 設備の選択用チェックボックス -->
   <div class="field">
-    <%= form.label :評価 %>
-   <%= form.number_field :rate %>
-  </div>
+  <%= form.label :facilities, "設備" %>
+  <%= form.collection_check_boxes :facility_ids, Facility.all, :id, :name do |b| %>
+    <div class="field">
+      <%= b.check_box %>
+      <%= b.label %>
+    </div>
+  <%end%>
+
 
 
   <div class="actions">

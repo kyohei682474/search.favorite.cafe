@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_19_214949) do
+ActiveRecord::Schema.define(version: 2023_06_24_142557) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -37,7 +37,6 @@ ActiveRecord::Schema.define(version: 2023_06_19_214949) do
     t.string "name", null: false
     t.string "address", null: false
     t.string "business_hours", null: false
-    t.float "rate", null: false
     t.float "latitude", null: false
     t.float "longitude", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -78,7 +77,6 @@ ActiveRecord::Schema.define(version: 2023_06_19_214949) do
   end
 
   create_table "facilities", force: :cascade do |t|
-    t.integer "cafe_id", null: false
     t.boolean "wifi", default: false
     t.boolean "power_outlets", default: false
     t.boolean "seating", default: false
@@ -87,6 +85,9 @@ ActiveRecord::Schema.define(version: 2023_06_19_214949) do
     t.boolean "wheelchair_accessible", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "name"
+    t.integer "cafe_id"
+    t.index ["cafe_id"], name: "index_facilities_on_cafe_id"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -134,7 +135,6 @@ ActiveRecord::Schema.define(version: 2023_06_19_214949) do
   add_foreign_key "comments", "cafes"
   add_foreign_key "comments", "customers"
   add_foreign_key "customer_posts", "customers"
-  add_foreign_key "facilities", "cafes"
   add_foreign_key "notifications", "customers", column: "visited_id"
   add_foreign_key "notifications", "customers", column: "visitor_id"
   add_foreign_key "notifications", "posts"

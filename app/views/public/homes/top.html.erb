@@ -4,6 +4,7 @@
 新着カフェ一覧
 <% @cafes.each do |cafe| %>
   <p><%= cafe.name %></p>
+   <%= link_to  cafe.name , cafe_path(cafe.id) %>
   <p><%= cafe.address %></p>
   <p>評価<%= cafe.average_scoreing %></p>
 
