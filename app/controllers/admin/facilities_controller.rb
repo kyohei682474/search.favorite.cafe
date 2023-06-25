@@ -3,15 +3,28 @@ class Admin::FacilitiesController < ApplicationController
        @facilities = Facility.all
        @facility = Facility.new
 
+
    end
    def create
        @facility = Facility.new(facility_params)
        if @facility.save
         redirect_to   admin_facilities_path
        else
-        render :new
+         flash.now[:alert] = "設備の登録に失敗しました。"
+        redirect_to   admin_facilities_path
        end
 
+
+   end
+
+   def edit
+     @facility = Facility.find(params[:id])
+   end
+
+   def update
+     facility = Facility.find(params[:id])
+     facility.update(facility_params)
+     redirect_to admin_facilities_path
 
    end
 

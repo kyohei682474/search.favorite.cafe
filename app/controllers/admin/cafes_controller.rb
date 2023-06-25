@@ -7,7 +7,7 @@ class Admin::CafesController < ApplicationController
 
     def new
         @cafe = Cafe.new
-        @faci
+
     end
 
     def create
@@ -26,6 +26,7 @@ class Admin::CafesController < ApplicationController
       if @cafe.save
           redirect_to admin_cafes_path, notice: "カフェが登録されました。"
       else
+
           render :new
       end
 
@@ -62,7 +63,7 @@ class Admin::CafesController < ApplicationController
      private
 
   def cafe_params
-    params.require(:cafe).permit(:name, :address, :business_hours,:cafe_id,:facility_ids)
+   params.require(:cafe).permit(:name, :address, :business_hours, facility_ids: [])
   end
 
 end

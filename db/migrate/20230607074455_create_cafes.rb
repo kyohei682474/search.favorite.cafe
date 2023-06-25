@@ -7,10 +7,6 @@ class CreateCafes < ActiveRecord::Migration[6.1]
       t.float  :latitude,              null: false
       t.float  :longitude,             null: false
 
-
-
-
-
       t.timestamps
     end
   end

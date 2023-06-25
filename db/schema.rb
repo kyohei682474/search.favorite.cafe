@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_24_142557) do
+ActiveRecord::Schema.define(version: 2023_06_25_104724) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -41,6 +41,15 @@ ActiveRecord::Schema.define(version: 2023_06_24_142557) do
     t.float "longitude", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "cafes_facilities", force: :cascade do |t|
+    t.integer "cafe_id", null: false
+    t.integer "facility_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["cafe_id"], name: "index_cafes_facilities_on_cafe_id"
+    t.index ["facility_id"], name: "index_cafes_facilities_on_facility_id"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -77,17 +86,9 @@ ActiveRecord::Schema.define(version: 2023_06_24_142557) do
   end
 
   create_table "facilities", force: :cascade do |t|
-    t.boolean "wifi", default: false
-    t.boolean "power_outlets", default: false
-    t.boolean "seating", default: false
-    t.boolean "outdoor_seating", default: false
-    t.boolean "parking", default: false
-    t.boolean "wheelchair_accessible", default: false
+    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "name"
-    t.integer "cafe_id"
-    t.index ["cafe_id"], name: "index_facilities_on_cafe_id"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -132,6 +133,8 @@ ActiveRecord::Schema.define(version: 2023_06_24_142557) do
 
   add_foreign_key "cafe_ratings", "cafes"
   add_foreign_key "cafe_ratings", "customers"
+  add_foreign_key "cafes_facilities", "cafes"
+  add_foreign_key "cafes_facilities", "facilities"
   add_foreign_key "comments", "cafes"
   add_foreign_key "comments", "customers"
   add_foreign_key "customer_posts", "customers"

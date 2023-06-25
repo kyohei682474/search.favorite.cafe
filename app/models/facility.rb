@@ -1,3 +1,3 @@
 class Facility < ApplicationRecord
-     belongs_to :cafe
+     has_and_belongs_to_many :cafes
 end

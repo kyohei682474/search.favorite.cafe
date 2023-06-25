@@ -1,35 +1,29 @@
-
 <h1>カフェ登録</h1>
-
-<%= form_with(model: @cafe, url: admin_cafes_path, local: true) do |form| %>
-
+<%= form_with model: @cafe, url: admin_cafes_path, method: :post do |form| %>
   <div class="field">
-    <%= form.label :カフェ名%>
+    <%= form.label :カフェ名 %>
     <%= form.text_field :name %>
   </div>
-
   <div class="field">
     <%= form.label :住所 %>
     <%= form.text_field :address %>
   </div>
-
   <div class="field">
     <%= form.label :営業時間 %>
     <%= form.text_field :business_hours %>
   </div>
 
-<!-- 設備の選択用チェックボックス -->
+
+  <!-- 設備の選択用チェックボックス -->
   <div class="field">
-  <%= form.label :facilities, "設備" %>
-  <%= form.collection_check_boxes :facility_ids, Facility.all, :id, :name do |b| %>
-    <div class="field">
-      <%= b.check_box %>
-      <%= b.label %>
-    </div>
-  <%end%>
-
-
-
+    <%= form.label :facilities, "設備" %>
+    <%= form.collection_check_boxes :facility_ids, Facility.all, :id, :name do |b| %>
+      <div class="field">
+        <%= b.check_box %>
+        <%= b.label %>
+      </div>
+    <% end %>
+  </div>
   <div class="actions">
     <%= form.submit "登録する" %>
   </div>

@@ -1,17 +1,18 @@
-<%= form_with model: @facility, url:  admin_facilities_path, method: :post  do |f| %>
+<%= form_with model: @facility, url: admin_facilities_path, method: :post  do |f| %>
 <h4>設備名</h4>
+
 <%= f.text_field :name %>
 <%= f.submit '新規登録' ,class:"btn btn-success w-45" %>
 
 <% end %>
 <h5>設備一覧</h5>
-<%  @facilities.each do |facility| %>
+<% @facilities.each do |facility| %>
 
 <table class="table w-53 "style="margin-left: 50px ">
 
      <tr>
          <td class="col-2"><%= facility.name %></td>
-         <td class="col-3"><%= link_to  "編集する",admin_facility_path(facility.id),class:"btn btn-success w-45"%></td>
+         <td class="col-3"><%= link_to  "編集する",edit_admin_facility_path(facility.id),class:"btn btn-success w-45"%></td>
 
      </tr>
 

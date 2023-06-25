@@ -32,6 +32,11 @@
 
   <body>
     <header>
+      <% flash.each do |type, message| %>
+  <div class="alert <%= type %>">
+    <%= message %>
+  </div>
+<% end %>
       <% if admin_signed_in? %>
         <%= link_to admin_cafes_path, class:'nav-link text-dark' do %>
           <li>カフェ一覧</li>
