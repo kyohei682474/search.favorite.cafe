@@ -1,27 +1,25 @@
 カスタマー側カフェ一覧ページ
 
-  <% @cafes.each do |cafe| %>
- <table>
- <tr>
-  <td> カフェ名</td>
-  <td> <%= link_to cafe.name,cafe_path(cafe.id) %></td>
+ <% @cafes.each do |cafe| %>
+  <table>
+    <tr>
+      <td>カフェ名</td>
+      <td><%= link_to cafe.name, cafe_path(cafe.id) %></td>
+    </tr>
 
- </tr>
+    <tr>
+      <td>住所</td> 
+      <td><%= cafe.address %></td>
+    </tr>
 
- <tr>
-  <td>住所<td>
-  <td> <%= cafe.address %></td>
- </tr>
+    <tr>
+      <td>営業時間</td> 
+      <td><%= cafe.business_hours %></td>
+    </tr>
 
- <tr>
-  <td> 営業時間 </td>
-  <td><%= cafe.business_hours %></td>
- </tr>
-
- <tr>
-  <td>評価 </td>
-  <td><%= cafe.rate %></td>
- </tr>
-
-</table>
-<%end%>
+    <tr>
+      <td>評価</td>
+      <td><%= cafe.comments.average(:score) %></td> <!-- 評価の平均値を表示 -->
+    </tr>
+  </table>
+<% end %>
